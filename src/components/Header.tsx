@@ -28,7 +28,9 @@ export default function Header() {
           </button>
 
           <Link to="/" className="flex-shrink-0">
-            <img src={logo} alt="Autêntica FashionF" className="h-12 w-12 rounded-full object-cover" />
+            <span className="font-display text-xl md:text-2xl font-semibold tracking-[0.25em] uppercase text-foreground">
+              — Autêntica —
+            </span>
           </Link>
 
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-lg">
