@@ -47,6 +47,9 @@ export default function Header() {
           </form>
 
           <div className="flex items-center gap-4">
+            <a href="https://www.instagram.com/autentica_fashionof" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors hidden md:block">
+              <Instagram size={20} />
+            </a>
             <Link to={user ? "/conta" : "/login"} className="text-foreground hover:text-primary transition-colors">
               <User size={22} />
             </Link>
