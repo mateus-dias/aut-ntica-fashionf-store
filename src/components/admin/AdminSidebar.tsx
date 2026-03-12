@@ -12,7 +12,11 @@ const menuItems = [
   { label: "Configurações", path: "/admin/configuracoes", icon: Settings },
 ];
 
-export default function AdminSidebar() {
+interface Props {
+  onNavigate?: () => void;
+}
+
+export default function AdminSidebar({ onNavigate }: Props) {
   const location = useLocation();
   const { logoutAdmin } = useAuth();
   const navigate = useNavigate();
@@ -22,10 +26,12 @@ export default function AdminSidebar() {
     navigate("/admin/login");
   };
 
+  const handleClick = () => onNavigate?.();
+
   return (
     <aside className="w-60 min-h-screen bg-card border-r border-border flex flex-col">
       <div className="p-4 border-b border-border">
-        <Link to="/admin/dashboard" className="flex items-center gap-2">
+        <Link to="/admin/dashboard" className="flex items-center gap-2" onClick={handleClick}>
           <Store size={20} className="text-primary" />
           <span className="font-display text-sm font-semibold text-foreground">Autêntica Admin</span>
         </Link>
@@ -38,6 +44,7 @@ export default function AdminSidebar() {
             <Link
               key={item.path}
               to={item.path}
+              onClick={handleClick}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                 active
                   ? "bg-primary/10 text-primary"
@@ -52,7 +59,7 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="p-3 border-t border-border">
-        <Link to="/" className="flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-1">
+        <Link to="/" onClick={handleClick} className="flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-1">
           <Store size={18} /> Ver Loja
         </Link>
         <button
