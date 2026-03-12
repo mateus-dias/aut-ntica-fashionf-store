@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
+import { Search, ShoppingBag, User, Menu, X, Instagram } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { categories } from "@/data/products";
-import logo from "@/assets/logo.jpg";
 
 export default function Header() {
   const { totalItems } = useCart();
@@ -29,7 +28,9 @@ export default function Header() {
           </button>
 
           <Link to="/" className="flex-shrink-0">
-            <img src={logo} alt="Autêntica FashionF" className="h-12 w-12 rounded-full object-cover" />
+            <span className="font-display text-xl md:text-2xl font-semibold tracking-[0.25em] uppercase text-foreground">
+              — Autêntica —
+            </span>
           </Link>
 
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-lg">
@@ -46,6 +47,9 @@ export default function Header() {
           </form>
 
           <div className="flex items-center gap-4">
+            <a href="https://www.instagram.com/autentica_fashionof" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors hidden md:block">
+              <Instagram size={20} />
+            </a>
             <Link to={user ? "/conta" : "/login"} className="text-foreground hover:text-primary transition-colors">
               <User size={22} />
             </Link>
