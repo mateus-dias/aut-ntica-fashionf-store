@@ -84,17 +84,17 @@ export default function AdminProducts() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="font-display text-2xl text-foreground">Produtos</h1>
-        <button onClick={openNew} className="btn-gold flex items-center gap-2 text-sm">
-          <Plus size={16} /> Adicionar Produto
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <h1 className="font-display text-xl sm:text-2xl text-foreground">Produtos</h1>
+        <button onClick={openNew} className="btn-gold flex items-center gap-2 text-xs sm:text-sm">
+          <Plus size={16} /> <span className="hidden sm:inline">Adicionar</span> Produto
         </button>
       </div>
 
       {/* Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-foreground/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-card border border-border rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto p-6">
+        <div className="fixed inset-0 bg-foreground/40 z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-card border border-border rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto p-4 sm:p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="font-display text-lg text-foreground">{editId ? "Editar Produto" : "Novo Produto"}</h2>
               <button onClick={() => setShowForm(false)}><X size={20} /></button>
@@ -110,7 +110,7 @@ export default function AdminProducts() {
                 <textarea required value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })}
                   rows={3} className="w-full border border-border rounded py-2 px-3 text-sm bg-background focus:ring-2 focus:ring-primary focus:outline-none" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground block mb-1">Preço (R$)</label>
                   <input required type="number" step="0.01" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })}
@@ -122,7 +122,7 @@ export default function AdminProducts() {
                     className="w-full border border-border rounded py-2 px-3 text-sm bg-background focus:ring-2 focus:ring-primary focus:outline-none" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground block mb-1">Categoria</label>
                   <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
@@ -141,14 +141,14 @@ export default function AdminProducts() {
                   </select>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="text-sm font-medium text-foreground block mb-1">Tamanhos (separados por vírgula)</label>
+                  <label className="text-sm font-medium text-foreground block mb-1">Tamanhos (vírgula)</label>
                   <input value={form.sizes} onChange={(e) => setForm({ ...form, sizes: e.target.value })}
                     className="w-full border border-border rounded py-2 px-3 text-sm bg-background focus:ring-2 focus:ring-primary focus:outline-none" />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground block mb-1">Cores (separadas por vírgula)</label>
+                  <label className="text-sm font-medium text-foreground block mb-1">Cores (vírgula)</label>
                   <input value={form.colors} onChange={(e) => setForm({ ...form, colors: e.target.value })}
                     className="w-full border border-border rounded py-2 px-3 text-sm bg-background focus:ring-2 focus:ring-primary focus:outline-none" />
                 </div>
@@ -159,7 +159,7 @@ export default function AdminProducts() {
                 <label className="text-sm font-medium text-foreground block mb-2">Imagens</label>
                 <div className="flex flex-wrap gap-3 mb-2">
                   {imagePreviews.map((src, i) => (
-                    <div key={i} className="relative w-20 h-20 rounded border border-border overflow-hidden group">
+                    <div key={i} className="relative w-16 h-16 sm:w-20 sm:h-20 rounded border border-border overflow-hidden group">
                       <img src={src} alt="" className="w-full h-full object-cover" />
                       <button type="button" onClick={() => removeImage(i)}
                         className="absolute inset-0 bg-foreground/50 text-background opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
@@ -167,7 +167,7 @@ export default function AdminProducts() {
                       </button>
                     </div>
                   ))}
-                  <label className="w-20 h-20 rounded border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-primary transition-colors">
+                  <label className="w-16 h-16 sm:w-20 sm:h-20 rounded border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-primary transition-colors">
                     <ImagePlus size={20} className="text-muted-foreground" />
                     <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" />
                   </label>
@@ -180,8 +180,8 @@ export default function AdminProducts() {
         </div>
       )}
 
-      {/* Products Table */}
-      <div className="bg-card border border-border rounded-lg overflow-hidden">
+      {/* Desktop Table */}
+      <div className="hidden md:block bg-card border border-border rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -221,6 +221,26 @@ export default function AdminProducts() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="md:hidden space-y-3">
+        {products.map((p) => (
+          <div key={p.id} className="bg-card border border-border rounded-lg p-4 flex gap-3">
+            <img src={p.image} alt={p.name} className="w-16 h-16 rounded object-cover flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-foreground text-sm truncate">{p.name}</p>
+              <p className="text-sm text-muted-foreground">R$ {p.price.toFixed(2)}</p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-green-100 text-green-700">Ativo</span>
+                <div className="flex gap-2">
+                  <button onClick={() => openEdit(p)} className="p-1.5 rounded hover:bg-secondary text-muted-foreground"><Pencil size={15} /></button>
+                  <button onClick={() => handleDelete(p.id, p.name)} className="p-1.5 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive"><Trash2 size={15} /></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -18,9 +18,10 @@ export default function AdminOrders() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl text-foreground mb-6">Pedidos</h1>
+      <h1 className="font-display text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">Pedidos</h1>
 
-      <div className="bg-card border border-border rounded-lg overflow-hidden">
+      {/* Desktop Table */}
+      <div className="hidden md:block bg-card border border-border rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -59,6 +60,32 @@ export default function AdminOrders() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="md:hidden space-y-3">
+        {orders.map((o) => (
+          <div key={o.id} className="bg-card border border-border rounded-lg p-4 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-medium text-foreground text-sm">{o.id}</span>
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded ${statusColors[o.status]}`}>{o.status}</span>
+            </div>
+            <div className="text-sm text-muted-foreground">{o.customer}</div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-foreground">R$ {o.total.toFixed(2)}</span>
+              <span className="text-xs text-muted-foreground">{o.date}</span>
+            </div>
+            <select
+              value={o.status}
+              onChange={(e) => changeStatus(o.id, e.target.value as Order["status"])}
+              className="w-full border border-border rounded py-1.5 px-2 text-xs bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option>Em preparo</option>
+              <option>Enviado</option>
+              <option>Entregue</option>
+            </select>
+          </div>
+        ))}
       </div>
     </div>
   );
