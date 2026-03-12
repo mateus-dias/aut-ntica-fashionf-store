@@ -1,0 +1,41 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import logo from "@/assets/logo.jpg";
+
+export default function LoginPage() {
+  const [isLogin, setIsLogin] = useState(true);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success(isLogin ? "Login simulado com sucesso!" : "Cadastro simulado com sucesso!");
+  };
+
+  return (
+    <div className="container py-12 max-w-md">
+      <div className="text-center mb-8">
+        <img src={logo} alt="Autêntica FashionF" className="h-16 w-16 rounded-full object-cover mx-auto mb-4" />
+        <h1 className="font-display text-2xl text-foreground">{isLogin ? "Entrar" : "Criar Conta"}</h1>
+      </div>
+
+      <form onSubmit={handleSubmit} className="border border-border rounded-md p-6 bg-card space-y-4">
+        {!isLogin && (
+          <input required placeholder="Nome completo" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
+        )}
+        <input required placeholder="E-mail" type="email" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
+        <input required placeholder="Senha" type="password" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
+        {!isLogin && (
+          <input required placeholder="Confirmar senha" type="password" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
+        )}
+        <button type="submit" className="btn-gold w-full">{isLogin ? "Entrar" : "Cadastrar"}</button>
+      </form>
+
+      <p className="text-center text-sm text-muted-foreground font-body mt-4">
+        {isLogin ? "Não tem conta?" : "Já tem conta?"}{" "}
+        <button onClick={() => setIsLogin(!isLogin)} className="text-primary hover:underline font-medium">
+          {isLogin ? "Cadastre-se" : "Faça login"}
+        </button>
+      </p>
+    </div>
+  );
+}
