@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
-import logo from "@/assets/logo.jpg";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -21,8 +20,8 @@ export default function LoginPage() {
   return (
     <div className="container py-12 max-w-md">
       <div className="text-center mb-8">
-        <img src={logo} alt="Autêntica FashionF" className="h-16 w-16 rounded-full object-cover mx-auto mb-4" />
-        <h1 className="font-display text-2xl text-foreground">{isLogin ? "Entrar" : "Criar Conta"}</h1>
+        <span className="font-display text-2xl font-semibold tracking-[0.25em] uppercase text-foreground">— Autêntica —</span>
+        <h1 className="font-display text-xl text-muted-foreground mt-2">{isLogin ? "Entrar" : "Criar Conta"}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="border border-border rounded-md p-6 bg-card space-y-4">

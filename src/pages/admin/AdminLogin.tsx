@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import logo from "@/assets/logo.jpg";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -24,8 +23,8 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-secondary flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-6">
-          <img src={logo} alt="Autêntica FashionF" className="h-16 w-16 rounded-full object-cover mx-auto mb-3" />
-          <h1 className="font-display text-xl text-foreground">Painel Administrativo</h1>
+          <span className="font-display text-2xl font-semibold tracking-[0.25em] uppercase text-foreground">— Autêntica —</span>
+          <h1 className="font-display text-lg text-muted-foreground mt-2">Painel Administrativo</h1>
           <p className="text-sm text-muted-foreground mt-1">Faça login para continuar</p>
         </div>
         <form onSubmit={handleSubmit} className="border border-border rounded-md p-6 bg-card space-y-4">
