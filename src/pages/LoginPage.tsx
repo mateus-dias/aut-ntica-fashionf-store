@@ -1,14 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo.jpg";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { loginCustomer } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success(isLogin ? "Login simulado com sucesso!" : "Cadastro simulado com sucesso!");
+    loginCustomer(email, password);
+    toast.success(isLogin ? "Login realizado com sucesso!" : "Cadastro realizado com sucesso!");
+    navigate("/conta");
   };
 
   return (
@@ -22,8 +29,10 @@ export default function LoginPage() {
         {!isLogin && (
           <input required placeholder="Nome completo" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
         )}
-        <input required placeholder="E-mail" type="email" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
-        <input required placeholder="Senha" type="password" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
+        <input required placeholder="E-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+          className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
+        <input required placeholder="Senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+          className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
         {!isLogin && (
           <input required placeholder="Confirmar senha" type="password" className="w-full border border-border rounded py-2.5 px-3 text-sm font-body bg-background focus:outline-none focus:ring-2 focus:ring-primary" />
         )}
